@@ -1,6 +1,7 @@
 const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.User;
+const Profile = db.Profile;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -10,7 +11,15 @@ exports.signup = (req, res) => {
     User.create({
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8)
-    }).then(() =>
+    }).then(user => {
+        Profile.create({
+            user_id: user.id,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            nb_followers: 0
+        }).catch(err => console.log(err.errors))
+    })
+        .then(() =>
         res.status(200).send({
            message: "Utilisateur correctement créé !"
         })

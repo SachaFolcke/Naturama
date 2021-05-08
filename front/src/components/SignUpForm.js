@@ -110,8 +110,12 @@ export default class SignUpForm extends Component {
 		this.form.validateAll();
 
 		if (this.checkBtn.context._errors.length === 0) {
-			AuthService.register(this.state.email, this.state.password).then(
-				response => {
+			AuthService.register(
+				this.state.email,
+				this.state.password,
+				this.state.first_name,
+				this.state.last_name)
+				.then(response => {
 					this.setState({
 						message: response.data.message + ' Redirection dans 5 secondes...',
 						successful: true,
@@ -141,7 +145,7 @@ export default class SignUpForm extends Component {
 		return (
 			<div className="signup-card">
 				<img
-					src="/logo-naturama.png"
+					src="../../img/logo-naturama.png"
 					alt="profile-img"
 					className="profile-img-card"
 				/>

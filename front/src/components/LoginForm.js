@@ -84,7 +84,7 @@ export default class loginForm extends Component {
 		return (
 			<div className="login-card">
 				<img
-					src="/logo-naturama.png"
+					src="../../img/logo-naturama.png"
 					alt="profile-img"
 					className="profile-img-card"
 				/>
