@@ -82,28 +82,25 @@ export default class loginForm extends Component {
 
 	render() {
 		return (
-			<div>
-				<div className="logo">
-					<img src="/logo-naturama.png" className="logo" />
-				</div>
-				<div className="login-card">
-					<img
-						src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-						alt="profile-img"
-						className="profile-img-card"
-					/>
+			<div className="login-card">
+				<img
+					src="/logo-naturama.png"
+					alt="profile-img"
+					className="profile-img-card"
+				/>
 
-					<Form
-						onSubmit={this.handleLogin}
-						ref={c => {
-							this.form = c;
-						}}
-					>
-						<div className="form-group">
+				<Form
+					onSubmit={this.handleLogin}
+					ref={c => {
+						this.form = c;
+					}}
+				>
+					<div className="login-form">
+						<div className="form-outline mb-4">
 							<label htmlFor="username">Email</label>
 							<Input
 								type="text"
-								className="login-form-control"
+								className="form-control"
 								name="username"
 								value={this.state.email}
 								onChange={this.onChangeEmail}
@@ -111,11 +108,11 @@ export default class loginForm extends Component {
 							/>
 						</div>
 
-						<div className="form-group">
+						<div className="form-outline mb-4">
 							<label htmlFor="password">Mot de passe</label>
 							<Input
 								type="password"
-								className="login-form-control"
+								className="form-control"
 								name="password"
 								value={this.state.password}
 								onChange={this.onChangePassword}
@@ -145,9 +142,9 @@ export default class loginForm extends Component {
 								this.checkBtn = c;
 							}}
 						/>
-					</Form>
-					<Link to="/signup">S'inscrire</Link>
-				</div>
+					</div>
+				</Form>
+				<Link to="/signup">S'inscrire</Link>
 			</div>
 		);
 	}
