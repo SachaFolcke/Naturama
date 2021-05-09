@@ -1,18 +1,38 @@
 const db = require("../models");
 const Profile = db.Profile;
-const jwt = require("../middleware/verifyToken")
 
 exports.getProfileByUserId = (req, res) => {
-
-    jwt.verifyToken(req, res);
 
     Profile.findOne({
         where: {
             user_id: req.params.id
         }})
-        .then((profile) =>
-            res.status(200).send(profile)
+        .then((profile) => {
+                if (profile) {
+                    res.status(200).send(profile)
+                } else {
+                    res.status(404).send({message: "Profil introuvable"})
+                }
+            }
         ).catch(err => {
-            res.status(500).send({ message: err.message })
+        res.status(err.statusCode).send({ message: err.message })
+    })
+}
+
+exports.getProfile = (req, res) => {
+
+    Profile.findOne({
+        where: {
+            id: req.params.id
+        }})
+        .then((profile) => {
+                if(profile) {
+                    res.status(200).send(profile)
+                } else {
+                    res.status(404).send({message: "Profil introuvable"})
+                }
+            }
+        ).catch(err => {
+        res.status(err.statusCode).send({ message: err.message })
     })
 }

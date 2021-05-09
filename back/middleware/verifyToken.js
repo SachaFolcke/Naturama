@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config.js");
 
-verifyToken = (req, res) => {
+verifyToken = (req, res, next) => {
     let token = req.headers["x-access-token"];
 
     if (!token) {
@@ -18,6 +18,7 @@ verifyToken = (req, res) => {
         }
         req.userId = decoded.id;
 
+        next()
     });
 };
 

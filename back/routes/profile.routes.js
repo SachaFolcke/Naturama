@@ -1,4 +1,5 @@
 const controller = require("../controllers/profile.controller");
+const { authJwt } = require("../middleware");
 
 module.exports = function(app) {
 
@@ -12,6 +13,13 @@ module.exports = function(app) {
 
     app.get(
         "/api/profile/user/:id",
+        [authJwt.verifyToken],
         controller.getProfileByUserId
+    );
+
+    app.get(
+        "/api/profile/:id",
+        [authJwt.verifyToken],
+        controller.getProfile
     );
 }
