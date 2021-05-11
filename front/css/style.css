@@ -1,3 +1,7 @@
 h1 {
   text-align: center;
 }
+
+#header {
+  margin-left: 40px;
+}
