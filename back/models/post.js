@@ -14,12 +14,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_profile",
         onDelete: "CASCADE"
       })
+      this.hasOne(models.Image, {
+        foreignKey: "id_image",
+        onDelete: "CASCADE"
+      })
     }
   };
   Post.init({
     date: DataTypes.DATE,
     text: DataTypes.TEXT,
-    img_src: DataTypes.STRING,
+    visibility: DataTypes.TINYINT,
     average_mark: DataTypes.FLOAT
   }, {
     sequelize,

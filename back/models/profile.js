@@ -17,6 +17,14 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Post)
       this.hasMany(models.Comment)
       this.hasMany(models.Rating)
+      this.hasOne(models.Image, {
+        foreignKey: "id_image_profile",
+        onDelete: "CASCADE"
+      })
+      this.hasOne(models.Image, {
+        foreignKey: "id_image_banner",
+        onDelete: "CASCADE"
+      })
     }
   };
   Profile.init({
