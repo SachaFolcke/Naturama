@@ -1,34 +1,36 @@
-import {Component} from "react";
-import auth from "../services/auth.service";
-import profile from "../services/profile.service";
-import SideBarMenu from "./SideBarMenu.js";
-
+import { Component } from 'react';
+import auth from '../services/auth.service';
+import profile from '../services/profile.service';
+import SideBarMenu from './SideBarMenu.js';
+import Timeline from './Timeline.js';
 
 export default class Homepage extends Component {
+	state = {
+		user: auth.getCurrentUser(),
+		profile: {},
+	};
 
-    state = {
-        user: auth.getCurrentUser(),
-        profile: {}
-    }
+	componentDidMount() {
+		profile.getProfileByUserId(this.state.user.id).then(data =>
+			this.setState({
+				profile: data,
+			})
+		);
+	}
 
-    componentDidMount() {
-        profile.getProfileByUserId(this.state.user.id)
-            .then((data) => this.setState({
-                profile: data
-            })
-        )
-    }
-
-    render() {
-        return (
-            <>
-
-                <h1>Homepage !</h1>
-                <p>Bienvenue {this.state.profile.first_name} {this.state.profile.last_name}</p>
-                <SideBarMenu history={this.props.history}/>
-                <div style={{height:"3000px"}}></div>
-
-            </>
-        )
-    }
+	render() {
+		return (
+			<>
+				<div className="row">
+					<div className="col-3">
+						<SideBarMenu history={this.props.history} />
+					</div>
+					<div className="col-7">
+						<Timeline />
+					</div>
+					<div className="col-md-2 col-lg-2"></div>
+				</div>
+			</>
+		);
+	}
 }

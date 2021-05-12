@@ -1,0 +1,19 @@
+.card-timeline{
+
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: white;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 8px;
+}
+
+.title-timeline{
+    padding: 5px;
+    width: 100%;
+    color: black;
+    background-color:rgb(179, 176, 176);
+    border-bottom: 2px solid black;
+}
