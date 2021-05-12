@@ -15,7 +15,7 @@ exports.getProfileByUserId = (req, res) => {
                 }
             }
         ).catch(err => {
-        res.status(err.statusCode).send({ message: err.message })
+        res.status(500).send({ message: err.message })
     })
 }
 
@@ -33,6 +33,6 @@ exports.getProfile = (req, res) => {
                 }
             }
         ).catch(err => {
-        res.status(err.statusCode).send({ message: err.message })
+        res.status(500).send({ message: err.message })
     })
 }

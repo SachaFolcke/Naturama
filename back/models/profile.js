@@ -14,9 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         onDelete: "CASCADE"
       })
-      this.hasMany(models.Post)
-      this.hasMany(models.Comment)
-      this.hasMany(models.Rating)
+
       this.hasOne(models.Image, {
         foreignKey: "id_image_profile",
         onDelete: "CASCADE"
