@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import '../../css/Timeline.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import NavigatorPublication from './NavigatorPublication.js';
 
 export default class Timeline extends Component {
 	render() {
@@ -28,8 +28,8 @@ export default class Timeline extends Component {
 				</div>
 
 				<div className="card-timeline mt-4">
-					<div className="row justify-content-around mt-2 mb-3">
-						<div>Publication</div>
+					<div>
+						<NavigatorPublication />
 					</div>
 				</div>
 			</div>

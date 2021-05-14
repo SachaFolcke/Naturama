@@ -1,0 +1,10 @@
+.Publication{
+    max-width: 100%;
+    border-bottom: 1px solid black;
+    margin-top: 5px;
+}
+
+img{
+    border-top: 3px solid blue;
+    border-bottom: 3px solid blue;
+}
