@@ -1,6 +1,8 @@
 const db = require("../models");
 const Post = db.Post;
 const Profile = db.Profile;
+const Image = db.Image;
+const uploadFile = require("../middleware/upload")
 
 exports.getPost = (req, res) => {
 
@@ -20,7 +22,47 @@ exports.getPost = (req, res) => {
     })
 }
 
-exports.postPost = (req, res) => {
+
+exports.getAllPosts = (req, res) => {
+
+    Post.findAll({
+        where: {
+            id_profile: req.params.id
+        }
+    }).then((posts) => {
+        res.status(200).send(posts)
+    }).catch(err => {
+        res.status(500).send({message: err.message})
+    })
+}
+
+exports.postPost = async (req, res) => {
+
+    req.filename = new Date().getTime().toString();
+    await uploadFile.uploadFileMiddleware(req, res);
+
+    if(req.validationError) {
+        res.status(400).send({
+            message: req.validationError
+        })
+        return;
+    }
+
+    let id_image = null;
+
+    if (req.file !== undefined) {
+        Image.create({
+            img_src: req.filename,
+            visibility: 0
+        }).then((image) => {
+            id_image = image.id;
+        })
+    } else if(req.body.text === undefined) {
+        res.status(400).send({
+            message: "Aucun contenu envoyé"
+        })
+        return;
+    }
 
     Profile.findOne({
         where: {
@@ -30,8 +72,9 @@ exports.postPost = (req, res) => {
         Post.create({
             date: new Date(),
             id_profile: profile.id,
-            text: req.body.text,
+            text: req.body.text === undefined ? null : req.body.text,
             visibility: 0,
+            id_image: id_image == null ? null : id_image,
             average_mark: 0
         })
     }).then(() => {

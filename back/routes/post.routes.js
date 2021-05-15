@@ -16,6 +16,12 @@ module.exports = function(app) {
         controller.getPost
     )
 
+    app.get(
+        "/api/profile/:id/posts",
+        [authJwt.verifyToken,],
+        controller.getAllPosts
+    )
+
     app.post(
         "/api/post",
         [authJwt.verifyToken,],
