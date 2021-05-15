@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE"
       })
 
-      this.hasOne(models.Image, {
+      this.belongsTo(models.Image, {
         foreignKey: "id_image_profile",
         onDelete: "CASCADE"
       })
-      this.hasOne(models.Image, {
+      this.belongsTo(models.Image, {
         foreignKey: "id_image_banner",
         onDelete: "CASCADE"
       })
