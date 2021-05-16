@@ -23,7 +23,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_image_banner",
         onDelete: "CASCADE"
       })
+      this.hasMany(models.Follow, {
+        foreignKey: "id_follower",
+        onDelete: "CASCADE"
+      })
+      this.hasMany(models.Follow, {
+        foreignKey: "id_followee",
+        onDelete: "CASCADE"
+      })
     }
+
   };
   Profile.init({
     last_name: DataTypes.STRING,
