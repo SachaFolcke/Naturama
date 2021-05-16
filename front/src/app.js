@@ -5,6 +5,7 @@ import PublicRoute from './components/PublicRoute';
 import PrivateRoute from './components/PrivateRoute';
 import LoginForm from './components/LoginForm';
 import Homepage from './components/Homepage';
+import PublicationPage from './components/PublicationPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUpForm from './components/SignUpForm';
@@ -16,6 +17,7 @@ render(
 			<PublicRoute exact path="/login" component={LoginForm} />
 			<PublicRoute exact path="/signup" component={SignUpForm} />
 			<PrivateRoute exact path="/" component={Homepage} />
+			<PrivateRoute exact path="/publier/:type" component={PublicationPage} />
 		</Switch>
 	</BrowserRouter>,
 	document.querySelector('#content')

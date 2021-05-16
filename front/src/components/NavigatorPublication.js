@@ -17,18 +17,20 @@ export default class NavigatorPublication extends Component {
 			case 'public':
 				return (
 					<div>
-						<button
-							className="btn btn-success"
-							onClick={() => this.push('public')}
-						>
-							Actualités
-						</button>
-						<button
-							className="btn btn-danger"
-							onClick={() => this.push('followed')}
-						>
-							Suivis
-						</button>
+						<div className="border-bottom border-dark">
+							<button
+								className="btn btn-success"
+								onClick={() => this.push('public')}
+							>
+								Actualités
+							</button>
+							<button
+								className="btn btn-danger"
+								onClick={() => this.push('followed')}
+							>
+								Suivis
+							</button>
+						</div>
 						<PublicationList
 							push={this.push}
 							params={this.state.params}
@@ -39,18 +41,20 @@ export default class NavigatorPublication extends Component {
 			case 'followed':
 				return (
 					<div>
-						<button
-							className="btn btn-danger"
-							onClick={() => this.push('public')}
-						>
-							Actualités
-						</button>
-						<button
-							className="btn btn-success"
-							onClick={() => this.push('followed')}
-						>
-							Suivis
-						</button>
+						<div className="border-bottom border-dark">
+							<button
+								className="btn btn-danger"
+								onClick={() => this.push('public')}
+							>
+								Actualités
+							</button>
+							<button
+								className="btn btn-success"
+								onClick={() => this.push('followed')}
+							>
+								Suivis
+							</button>
+						</div>
 						<PublicationList
 							push={this.push}
 							params={this.state.params}

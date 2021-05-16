@@ -1,4 +1,5 @@
 import React, { Component, useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../../css/Timeline.css';
 import NavigatorPublication from './NavigatorPublication.js';
 
@@ -12,17 +13,17 @@ export default class Timeline extends Component {
 					</div>
 					<div className="row justify-content-around mt-2 mb-3">
 						<div>
-							<button className="btn btn-success">
+							<Link to={'/publier/message'} className="btn btn-success">
 								<i className="fas fa-i-cursor mr-2"></i>
 								Publier un nouveau Message
-							</button>
+							</Link>
 						</div>
 
 						<div>
-							<button className="btn btn-success">
+							<Link to={'/publier/photo'} className="btn btn-success">
 								<i className="fas fa-camera mr-2"></i>
 								Publier une nouvelle Photo
-							</button>
+							</Link>
 						</div>
 					</div>
 				</div>

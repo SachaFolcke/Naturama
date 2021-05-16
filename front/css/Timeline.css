@@ -13,6 +13,8 @@
     padding: 5px;
     width: 100%;
     color: black;
-    background-color:rgb(179, 176, 176);
+    background-color:#448AA6;
     border-bottom: 2px solid black;
+    font-family: 'Lucida Grande';
+    font-size: 20px;
 }
