@@ -19,13 +19,13 @@ export default class NavigatorPublication extends Component {
 					<div>
 						<div className="border-bottom border-dark">
 							<button
-								className="btn btn-success"
+								className="btn btn-success w-50"
 								onClick={() => this.push('public')}
 							>
 								Actualités
 							</button>
 							<button
-								className="btn btn-danger"
+								className="btn btn-danger w-50"
 								onClick={() => this.push('followed')}
 							>
 								Suivis
@@ -43,13 +43,13 @@ export default class NavigatorPublication extends Component {
 					<div>
 						<div className="border-bottom border-dark">
 							<button
-								className="btn btn-danger"
+								className="btn btn-danger w-50"
 								onClick={() => this.push('public')}
 							>
 								Actualités
 							</button>
 							<button
-								className="btn btn-success"
+								className="btn btn-success w-50"
 								onClick={() => this.push('followed')}
 							>
 								Suivis

@@ -1,28 +1,28 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import Publication from './Publication';
+import '../../css/Publication.css';
+import tokenHeader from '../services/token-header.js';
 
-export default class PublicationList extends Component {
-	state = {
-		videos: [],
-	};
+export default function PublicationList(props) {
+	const [publications, setPublications] = useState([]);
 
-	componentDidMount() {
-		fetch('http://localhost:8090/api/videos')
+	function fetchPublications() {
+		fetch('http://localhost:8080/api/timeline', {
+			method: 'GET',
+			headers: tokenHeader(),
+		})
 			.then(response => response.json())
-			.then(data => this.setState({ videos: data }));
+			.then(data => setPublications(data));
 	}
 
-	render() {
-		const { videos } = this.state,
-			classNames = `videoList ${videos?.length ? '' : 'is-loading'}`;
+	useEffect(fetchPublications, [setPublications]);
 
-		return (
-			<div className={classNames}>
-				{this.props.mod}
-				{videos.map(video => (
-					<Publication video={video} key={video.id} />
-				))}
-			</div>
-		);
-	}
+	const classNames = `videoList ${publications?.length ? '' : 'is-loading'}`;
+	return (
+		<div className={classNames}>
+			{publications.map(publication => (
+				<Publication publication={publication} key={publication.id} />
+			))}
+		</div>
+	);
 }
