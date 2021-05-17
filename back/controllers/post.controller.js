@@ -2,7 +2,9 @@ const db = require("../models");
 const Post = db.Post;
 const Profile = db.Profile;
 const Image = db.Image;
+const Follow = db.Follow;
 const uploadFile = require("../middleware/upload")
+const {Sequelize} = require("sequelize");
 
 exports.getPost = (req, res) => {
 
@@ -22,18 +24,52 @@ exports.getPost = (req, res) => {
     })
 }
 
-
+// Obtenir tous les posts d'un Profile particulier
 exports.getAllPosts = (req, res) => {
 
     Post.findAll({
         where: {
             id_profile: req.params.id
-        }
+        }, order: [['date', 'DESC']]
     }).then((posts) => {
         res.status(200).send(posts)
     }).catch(err => {
         res.status(500).send({message: err.message})
     })
+}
+
+exports.getInterestingPosts = (req, res) => {
+
+    Profile.findOne({
+        where: {
+            user_id: req.userId
+        }
+    }).then((profile) => {
+        Follow.findAll({
+            where: {
+                id_follower: profile.id
+            }
+        }).then((follows) => {
+            const ids = [profile.id];
+            follows.forEach((follow) => {
+                ids.push(follow.id_followee);
+            })
+
+            Post.findAll({
+                where: {
+                    id_profile: {
+                        [Sequelize.Op.in] : ids
+                    }
+                }, order: [['date', 'DESC']]
+            }).then((posts) => {
+                res.status(200).send(posts)
+            })
+        })
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message
+        });
+    });
 }
 
 exports.postPost = async (req, res) => {

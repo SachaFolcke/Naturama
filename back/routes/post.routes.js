@@ -22,6 +22,12 @@ module.exports = function(app) {
         controller.getAllPosts
     )
 
+    app.get(
+        "/api/timeline",
+        [authJwt.verifyToken,],
+        controller.getInterestingPosts
+    )
+
     app.post(
         "/api/post",
         [authJwt.verifyToken,],
