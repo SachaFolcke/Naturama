@@ -1,18 +1,67 @@
 import { Component, useEffect, useState } from 'react';
 import '../../css/Publication.css';
-import StarRatings from 'react-star-ratings';
 import StarRating from './StarRating.js';
 import tokenHeader from '../services/token-header.js';
 
 function Publication({ publication }) {
-	const { id, id_image, id_profile, text, average_mark } = publication;
+	const { id, id_image, id_profile, text, average_mark, date } = publication;
 
 	const [imageShow, setImageShow] = useState('');
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
-	const [rating, setRating] = useState(0);
+	const [idProfilImage, setIdProfilImage] = useState(undefined);
+	const [profilImage, setProfilImage] = useState('');
 
-	let baliseImage = '';
+	function timeSince() {
+		var seconds = Math.floor((new Date() - new Date(date)) / 1000);
+
+		var interval = seconds / 31536000;
+
+		if (interval > 1) {
+			return Math.floor(interval) + ' ans';
+		}
+		interval = seconds / 2592000;
+		if (interval > 1) {
+			return Math.floor(interval) + ' mois';
+		}
+		interval = seconds / 86400;
+		if (interval > 1) {
+			return Math.floor(interval) + ' jours';
+		}
+		interval = seconds / 3600;
+		if (interval > 1) {
+			return Math.floor(interval) + ' heures';
+		}
+		interval = seconds / 60;
+		if (interval > 1) {
+			return Math.floor(interval) + ' minutes';
+		}
+		return Math.floor(seconds) + ' secondes';
+	}
+
+	function fetchProfileImage() {
+		fetch('http://localhost:8080/api/profile/' + id_profile, {
+			method: 'GET',
+			headers: tokenHeader(),
+		})
+			.then(response => response.json())
+			.then(data => {
+				setIdProfilImage(data.id_image_profile);
+			});
+
+		if (idProfilImage == undefined) {
+			setProfilImage('../../img/user.jpg');
+		} else {
+			fetch('http://localhost:8080/api/image/' + idProfilImage, {
+				method: 'GET',
+				headers: tokenHeader(),
+			})
+				.then(response => response.blob())
+				.then(image => {
+					setImageProfil(URL.createObjectURL(image));
+				});
+		}
+	}
 
 	function fetchImage() {
 		fetch('http://localhost:8080/api/image/' + id_image, {
@@ -37,6 +86,7 @@ function Publication({ publication }) {
 			});
 	}
 
+	let baliseImage = '';
 	if (id_image != undefined) {
 		useEffect(fetchImage, [setImageShow]);
 		baliseImage = (
@@ -46,24 +96,18 @@ function Publication({ publication }) {
 		);
 	}
 
+	useEffect(fetchProfileImage, [setProfilImage]);
 	useEffect(fetchUser, [setLastName]);
 
 	return (
 		<div className="publication" key={id}>
 			<div className="d-flex flex-row mb-4 mt-3">
 				<div className="mr-4">
-					<img className="user-img" src="../../img/user.jpg" />
-					<label>
+					<img className="user-img" src={profilImage} />
+					<label className="mr-2">
 						{lastName} {firstName}
 					</label>
-				</div>
-				<div>
-					<span className="align-baseline">baseline</span>
-					<span className="align-top">top</span>
-					<span className="align-middle">middle</span>
-					<span className="align-bottom">bottom</span>
-					<span className="align-text-top">text-top</span>
-					<span className="align-text-bottom">text-bottom</span>
+					-<label className="ml-2">il y a {timeSince()}</label>
 				</div>
 			</div>
 			<label className="ml-5">{text}</label>
