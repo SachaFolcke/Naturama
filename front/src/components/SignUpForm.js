@@ -114,8 +114,9 @@ export default class SignUpForm extends Component {
 				this.state.email,
 				this.state.password,
 				this.state.first_name,
-				this.state.last_name)
-				.then(response => {
+				this.state.last_name
+			).then(
+				response => {
 					this.setState({
 						message: response.data.message + ' Redirection dans 5 secondes...',
 						successful: true,
@@ -145,7 +146,7 @@ export default class SignUpForm extends Component {
 		return (
 			<div className="signup-card">
 				<img
-					src="../../img/logo-naturama.png"
+					src="../../img/logo_small.png"
 					alt="profile-img"
 					className="profile-img-card"
 				/>
