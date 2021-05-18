@@ -110,6 +110,7 @@ exports.postPost = async (req, res) => {
             id_profile: profile.id,
             text: req.body.text === undefined ? null : req.body.text,
             visibility: 0,
+            nb_votes: 0,
             id_image: id_image == null ? null : id_image,
             average_mark: 0
         })

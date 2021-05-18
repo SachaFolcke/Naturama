@@ -31,12 +31,19 @@ exports.submitFollow = (req, res) => {
                 Follow.create({
                     id_follower: profile.id,
                     id_followee: req.body.id
-                }).then(() =>
-                    res.status(200).send({
-                        message: "Abonnement créé"
-                    }));
+                }).then(() => {
+                        res.status(200).send({
+                            message: "Abonnement créé"
+                        })
+                    }
+                );
             }
-        })
+        }).then(() => {
+            Profile.findByPk(req.body.id)
+            .then((profile) => {
+                profile.updateFollowerCount();
+            })}
+        )
     })
 }
 

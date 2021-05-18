@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       const result = [];
 
       this.getRatings().then((ratings) => {
+        this.nb_votes = ratings.length;
         ratings.forEach((rating) => result.push(rating.mark))
       }).then(() => {
         let sum = 0;
@@ -46,7 +47,8 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.DATE,
     text: DataTypes.TEXT,
     visibility: DataTypes.TINYINT,
-    average_mark: DataTypes.FLOAT
+    average_mark: DataTypes.FLOAT,
+    nb_votes: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Post',

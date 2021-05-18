@@ -24,9 +24,6 @@ module.exports = {
       text: {
         type: Sequelize.TEXT
       },
-      img_src: {
-        type: Sequelize.STRING
-      },
       average_mark: {
         type: Sequelize.FLOAT
       },

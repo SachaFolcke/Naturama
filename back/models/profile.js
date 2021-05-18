@@ -4,6 +4,14 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Profile extends Model {
+
+    updateFollowerCount() {
+      this.getFollows().then((follows) => {
+        this.nb_followers = follows.length;
+        this.save();
+      })
+    }
+
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -24,15 +32,14 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE"
       })
       this.hasMany(models.Follow, {
-        foreignKey: "id_follower",
-        onDelete: "CASCADE"
-      })
-      this.hasMany(models.Follow, {
         foreignKey: "id_followee",
         onDelete: "CASCADE"
       })
+      this.hasMany(models.Follow, {
+        foreignKey: "id_follower",
+        onDelete: "CASCADE"
+      })
     }
-
   };
   Profile.init({
     last_name: DataTypes.STRING,

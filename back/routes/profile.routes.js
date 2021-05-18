@@ -22,4 +22,22 @@ module.exports = function(app) {
         [authJwt.verifyToken],
         controller.getProfile
     );
+
+    app.post(
+        "/api/profile/picture",
+        [authJwt.verifyToken],
+        controller.submitProfilePicture
+    )
+
+    app.post(
+        "/api/profile/banner",
+        [authJwt.verifyToken],
+        controller.submitBannerPicture
+    )
+
+    app.post(
+        "/api/profile/infos",
+        [authJwt.verifyToken],
+        controller.submitInfos
+    )
 }
