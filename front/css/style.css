@@ -5,3 +5,7 @@ h1 {
 #header {
   margin-left: 40px;
 }
+
+body{
+  overflow-x: hidden;
+}

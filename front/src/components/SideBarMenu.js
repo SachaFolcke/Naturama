@@ -30,9 +30,29 @@ export default class SideBarMenu extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			visible: false,
-		};
+
+		if (props.selection == 'home') {
+			this.state = {
+				visible: false,
+				homeBool: true,
+				profilBool: false,
+				donationBool: false,
+			};
+		} else if (props.selection == 'profil') {
+			this.state = {
+				visible: false,
+				homeBool: false,
+				profilBool: true,
+				donationBool: false,
+			};
+		} else {
+			this.state = {
+				visible: false,
+				homeBool: false,
+				profilBool: false,
+				donationBool: false,
+			};
+		}
 	}
 
 	openModal() {
@@ -70,17 +90,24 @@ export default class SideBarMenu extends Component {
 							</SidebarHeader>
 							<SidebarContent>
 								<Menu iconShape="round">
-									<MenuItem active={true} icon={<FiHome />}>
+									<MenuItem active={this.state.homeBool} icon={<FiHome />}>
 										Accueil<NavLink exact to="/"></NavLink>
 									</MenuItem>
-									<MenuItem icon={<ImProfile />}>Mon profil</MenuItem>
+									<MenuItem active={this.state.profilBool} icon={<ImProfile />}>
+										Mon profil<NavLink exact to="/Profile"></NavLink>
+									</MenuItem>
 									<MenuItem
 										icon={<BiImageAdd />}
 										onClick={() => this.openModal()}
 									>
 										Publier
 									</MenuItem>
-									<MenuItem icon={<BiDollar />}>Donation</MenuItem>
+									<MenuItem
+										active={this.state.donationBool}
+										icon={<BiDollar />}
+									>
+										Donation
+									</MenuItem>
 								</Menu>
 							</SidebarContent>
 							<SidebarFooter>

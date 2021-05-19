@@ -2,9 +2,9 @@ import { Component } from 'react';
 import auth from '../services/auth.service';
 import profile from '../services/profile.service';
 import SideBarMenu from './SideBarMenu.js';
-import Timeline from './Timeline.js';
+import ProfilNavigator from './ProfilNavigator.js';
 
-export default class Homepage extends Component {
+export default class ProfilPage extends Component {
 	state = {
 		user: auth.getCurrentUser(),
 		profile: {},
@@ -23,10 +23,10 @@ export default class Homepage extends Component {
 			<>
 				<div className="row">
 					<div className="col-3">
-						<SideBarMenu selection="home" history={this.props.history} />
+						<SideBarMenu selection="profil" history={this.props.history} />
 					</div>
 					<div className="col-7">
-						<Timeline />
+						<ProfilNavigator />
 					</div>
 					<div className="col-md-2 col-lg-2"></div>
 				</div>

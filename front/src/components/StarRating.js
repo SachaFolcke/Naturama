@@ -28,7 +28,7 @@ export default class StarRating extends React.Component {
 	render() {
 		const { rating } = this.state;
 		return (
-			<div>
+			<div className="d-flex flex-row">
 				<StarRatingComponent
 					name="rate1"
 					starCount={5}
@@ -36,6 +36,10 @@ export default class StarRating extends React.Component {
 					onStarClick={this.fetchSetRating.bind(this)}
 					starColor="#1fb80b"
 				/>
+				<label className="ml-2">
+					Note moyenne {Math.round(this.props.average_mark * 100) / 100}/5 (
+					{this.props.nb_votes} votes)
+				</label>
 			</div>
 		);
 	}

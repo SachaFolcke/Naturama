@@ -1,21 +1,28 @@
-import { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../css/Publication.css';
 import StarRating from './StarRating.js';
 import tokenHeader from '../services/token-header.js';
 
 function Publication({ publication }) {
-	const { id, id_image, id_profile, text, average_mark, date } = publication;
+	const {
+		id,
+		id_image,
+		id_profile,
+		text,
+		average_mark,
+		date,
+		nb_votes,
+	} = publication;
 
 	const [imageShow, setImageShow] = useState('');
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
-	const [idProfilImage, setIdProfilImage] = useState(undefined);
 	const [profilImage, setProfilImage] = useState('');
 
 	function timeSince() {
-		var seconds = Math.floor((new Date() - new Date(date)) / 1000);
+		let seconds = Math.floor((new Date() - new Date(date)) / 1000);
 
-		var interval = seconds / 31536000;
+		let interval = seconds / 31536000;
 
 		if (interval > 1) {
 			return Math.floor(interval) + ' ans';
@@ -46,21 +53,19 @@ function Publication({ publication }) {
 		})
 			.then(response => response.json())
 			.then(data => {
-				setIdProfilImage(data.id_image_profile);
+				if (data.id_image_profile == undefined) {
+					setProfilImage('../../img/user.jpg');
+				} else {
+					fetch('http://localhost:8080/api/image/' + data.id_image_profile, {
+						method: 'GET',
+						headers: tokenHeader(),
+					})
+						.then(response => response.blob())
+						.then(image => {
+							setProfilImage(URL.createObjectURL(image));
+						});
+				}
 			});
-
-		if (idProfilImage == undefined) {
-			setProfilImage('../../img/user.jpg');
-		} else {
-			fetch('http://localhost:8080/api/image/' + idProfilImage, {
-				method: 'GET',
-				headers: tokenHeader(),
-			})
-				.then(response => response.blob())
-				.then(image => {
-					setImageProfil(URL.createObjectURL(image));
-				});
-		}
 	}
 
 	function fetchImage() {
@@ -105,7 +110,7 @@ function Publication({ publication }) {
 				<div className="mr-4">
 					<img className="user-img" src={profilImage} />
 					<label className="mr-2">
-						{lastName} {firstName}
+						{firstName} {lastName}
 					</label>
 					-<label className="ml-2">il y a {timeSince()}</label>
 				</div>
@@ -113,9 +118,7 @@ function Publication({ publication }) {
 			<label className="ml-5">{text}</label>
 			{baliseImage}
 			<div className="d-flex justify-content-between mt-2 mb-2 mr-4 ml-4">
-				<div className="note">
-					<StarRating id={id} average_mark={average_mark} />
-				</div>
+				<StarRating id={id} average_mark={average_mark} nb_votes={nb_votes} />
 				<button className="btn btn-success">Commentaires</button>
 			</div>
 		</div>

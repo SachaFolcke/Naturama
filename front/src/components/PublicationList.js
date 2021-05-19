@@ -17,9 +17,8 @@ export default function PublicationList(props) {
 
 	useEffect(fetchPublications, [setPublications]);
 
-	const classNames = `videoList ${publications?.length ? '' : 'is-loading'}`;
 	return (
-		<div className={classNames}>
+		<div>
 			{publications.map(publication => (
 				<Publication publication={publication} key={publication.id} />
 			))}
