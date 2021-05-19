@@ -22,34 +22,39 @@ export default class UploadForm extends Component {
 		});
 	}
 
-	submit() {
+	handleSubmit(event) {
+		event.preventDefault();
 		const header = {
 			'x-access-token': authHeader()['x-access-token'],
 			'content-type': 'multipart/form-data;',
 		};
-		const dataU = new FormData();
-		const text = JSON.stringify(this.descriptionRef.current.value);
-		console.log(text);
-		dataU.append('file', this.state.selectedFile);
-		dataU.append('text', text);
+		const dataUpload = new FormData();
 
+		dataUpload.append('file', this.state.selectedFile);
+		dataUpload.append('text', this.descriptionRef.current.value);
 		axios({
 			method: 'post',
 			url: 'http://localhost:8080/api/post',
-			data: dataU,
+			data: dataUpload,
 			headers: header,
 		})
-			.then(response => response.json())
 			.then(function (response) {
 				if (response.status == 200) {
 					window.location = '/';
 				}
+			})
+			.catch(function (response) {
+				alert('Erreur');
 			});
 	}
 
 	render() {
 		return (
-			<form className="uploadForm" id="uploadForm">
+			<form
+				className="uploadForm"
+				id="uploadForm"
+				onSubmit={event => this.handleSubmit(event)}
+			>
 				<img
 					src={this.state.previewImage}
 					className="imagePreview"
@@ -61,11 +66,11 @@ export default class UploadForm extends Component {
 						id="file"
 						aria-label="File browser example"
 						onChange={this.handleInputChange}
+						accept="image/*"
 					/>
 					<span className="file-custom"></span>
 				</label>
 				<textarea
-					required
 					id="description"
 					placeholder="Veuillez entrer un message"
 					cols="30"
@@ -73,11 +78,7 @@ export default class UploadForm extends Component {
 					ref={this.descriptionRef}
 				></textarea>
 
-				<button
-					type="submit"
-					className="btn btn-success"
-					onClick={() => this.submit()}
-				>
+				<button type="submit" className="btn btn-success">
 					Envoyer
 				</button>
 			</form>

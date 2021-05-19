@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthService from '../services/auth.service';
 import { FiHome, FiLogOut } from 'react-icons/fi';
@@ -9,8 +9,7 @@ import '../../css/uploadForm.css';
 import '../../css/Header.css';
 import '../../css/Modal.css';
 import Sticky from 'react-stickynode';
-import Modal from 'react-awesome-modal';
-import UploadForm from './UploadForm';
+import ModalComponent from './ModalComponent';
 
 import {
 	ProSidebar,
@@ -30,6 +29,7 @@ export default class SideBarMenu extends Component {
 
 	constructor(props) {
 		super(props);
+		this.ModalComponent = createRef();
 
 		if (props.selection == 'home') {
 			this.state = {
@@ -55,37 +55,25 @@ export default class SideBarMenu extends Component {
 		}
 	}
 
-	openModal() {
-		this.setState({
-			visible: true,
-		});
-	}
-
-	closeModal() {
-		this.setState({
-			visible: false,
-		});
-	}
+	getOpenModal = () => {
+		this.ModalComponent.current.openModal();
+	};
 
 	render() {
 		return (
-			<div id="modal">
-				<Modal
-					visible={this.state.visible}
-					width="600"
-					effect="fadeInUp"
-					onClickAway={() => this.closeModal()}
-				>
-					<div className="ModalForm">
-						<UploadForm />
-					</div>
-				</Modal>
+			<div id="Menu">
+				<div id="ModalMenu">
+					<ModalComponent ref={this.ModalComponent} />
+				</div>
 				<Sticky enabled={true}>
 					<div id="header">
 						<ProSidebar collapsed={false}>
 							<SidebarHeader>
 								<div className="logo">
-									<img className="logoImg" src="../../img/logo_small.png"></img>
+									<img
+										className="logoImg"
+										src="../../img/logo_small2.png"
+									></img>
 								</div>
 							</SidebarHeader>
 							<SidebarContent>
@@ -98,7 +86,7 @@ export default class SideBarMenu extends Component {
 									</MenuItem>
 									<MenuItem
 										icon={<BiImageAdd />}
-										onClick={() => this.openModal()}
+										onClick={() => this.getOpenModal()}
 									>
 										Publier
 									</MenuItem>

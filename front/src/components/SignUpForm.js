@@ -146,7 +146,7 @@ export default class SignUpForm extends Component {
 		return (
 			<div className="signup-card">
 				<img
-					src="../../img/logo_small.png"
+					src="../../img/logo_small2.png"
 					alt="profile-img"
 					className="profile-img-card"
 				/>
