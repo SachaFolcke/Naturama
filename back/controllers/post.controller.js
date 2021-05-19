@@ -8,19 +8,17 @@ const {Sequelize} = require("sequelize");
 
 exports.getPost = (req, res) => {
 
-    Post.findByPk(req.params.id)
+    Post.findByPk(req.params.id, {
+        include: Profile
+    })
         .then((post) => {
         if(post) {
-            Profile.findByPk(post.id_profile)
-                .then((profile) => {
-                    res.status(200).send({post: post, profile: profile})
-                }
-            )
+            res.status(200).send(post);
         } else {
-            res.status(404).send({message: "Post introuvable"})
+            res.status(404).send({message: "Post introuvable"});
         }
     }).catch(err => {
-        res.status(500).send({message: err.message})
+        res.status(500).send({message: err.message});
     })
 }
 
@@ -60,7 +58,8 @@ exports.getInterestingPosts = (req, res) => {
                     id_profile: {
                         [Sequelize.Op.in] : ids
                     }
-                }, order: [['date', 'DESC']]
+                }, order: [['date', 'DESC']],
+                include: Profile
             }).then((posts) => {
                 res.status(200).send(posts)
             })
@@ -93,7 +92,7 @@ exports.postPost = async (req, res) => {
         }).then((image) => {
             id_image = image.id;
         })
-    } else if(req.body.text === undefined) {
+    } else if(req.body.text === undefined || req.body.text.length <= 0) {
         res.status(400).send({
             message: "Aucun contenu envoyé"
         })

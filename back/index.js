@@ -25,7 +25,8 @@ require('./routes/profile.routes')(app)
 require('./routes/post.routes')(app)
 require('./routes/rating.routes')(app)
 require('./routes/image.routes')(app)
-require("./routes/follow.routes")(app)
+require('./routes/follow.routes')(app)
+require('./routes/comment.routes')(app)
 
 const db = require("./models");
 
