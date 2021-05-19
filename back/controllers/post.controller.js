@@ -130,16 +130,28 @@ exports.deletePost = (req, res) => {
     Post.findByPk(req.params.id).then(
         (post) => {
             if(post) {
-                post.destroy().then(
-                    () => {
-                        res.status(200).send({
-                            message: "Post correctement supprimé"
+                Profile.findOne({
+                    where: {
+                        user_id: req.userId
+                    }
+                }).then((profile) => {
+                    if(post.id_profile === profile.id) {
+                        post.destroy().then(
+                            () => {
+                                res.status(200).send({
+                                    message: "Post correctement supprimé"
+                                })
+                            }
+                        ).catch((err) => {
+                            res.status(500).send({
+                                message: err.message
+                            });
+                        })
+                    } else {
+                        res.status(403).send({
+                            message: "Ce post ne vous appartient pas"
                         })
                     }
-                ).catch((err) => {
-                    res.status(500).send({
-                        message: err.message
-                    });
                 })
             } else {
                 res.status(404).send({
