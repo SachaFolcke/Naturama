@@ -45,6 +45,19 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_post",
         onDelete: "CASCADE"
       });
+      this.belongsToMany(models.Tag, {
+        through: {
+          model: models.Tagasso,
+      },
+        foreignKey: "id_post",
+        hooks: true,
+      })
+
+      this.addHook("beforeDestroy",  async (instance, options) => {
+        await instance.getTags().then((tags) => {
+          tags.forEach((tag) => { setTimeout(() => tag.updateCount(), 2000) })
+        })
+      })
     }
   };
   Post.init({

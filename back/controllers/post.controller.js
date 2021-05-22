@@ -3,13 +3,18 @@ const Post = db.Post;
 const Profile = db.Profile;
 const Image = db.Image;
 const Follow = db.Follow;
+const Tag = db.Tag;
+const Tagasso = db.Tagasso;
 const uploadFile = require("../middleware/upload")
 const {Sequelize} = require("sequelize");
 
 exports.getPost = (req, res) => {
 
     Post.findByPk(req.params.id, {
-        include: Profile
+        include: [
+            {model: Profile},
+            {model: Tag}
+        ]
     })
         .then((post) => {
         if(post) {
@@ -59,7 +64,10 @@ exports.getInterestingPosts = (req, res) => {
                         [Sequelize.Op.in] : ids
                     }
                 }, order: [['date', 'DESC']],
-                include: Profile
+                include: [
+                    {model: Profile},
+                    {model: Tag}
+                ]
             }).then((posts) => {
                 res.status(200).send(posts)
             })
@@ -112,6 +120,28 @@ exports.postPost = async (req, res) => {
             nb_votes: 0,
             id_image: id_image == null ? null : id_image,
             average_mark: 0
+        }).then((post) => {
+            if(req.body.tags !== undefined && req.body.tags.length > 0) {
+                const tags = req.body.tags.split(",");
+                tags.forEach(async (tag) => {
+                    if(tag.length > 0) {
+                        await Tag.findOrCreate({
+                            where: {
+                                name: tag.trim().toLowerCase()
+                            },
+                            defaults: {
+                                count: 0
+                            }
+                        }).then(async ([tagObj, created]) => {
+                            await Tagasso.create({
+                                id_tag: tagObj.id,
+                                id_post: post.id
+                            })
+                        })
+                    }
+                })
+            }
+
         })
     }).then(() => {
         res.status(200).send({

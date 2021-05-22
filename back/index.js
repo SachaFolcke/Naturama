@@ -27,6 +27,7 @@ require('./routes/rating.routes')(app)
 require('./routes/image.routes')(app)
 require('./routes/follow.routes')(app)
 require('./routes/comment.routes')(app)
+require('./routes/tag.routes')(app)
 
 const db = require("./models");
 
