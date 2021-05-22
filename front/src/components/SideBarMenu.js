@@ -4,12 +4,13 @@ import AuthService from '../services/auth.service';
 import { FiHome, FiLogOut } from 'react-icons/fi';
 import { BiImageAdd, BiDollar } from 'react-icons/bi';
 import { ImProfile } from 'react-icons/im';
+import Sticky from 'react-stickynode';
+import ModalComponent from './ModalComponent';
+
 import 'react-pro-sidebar/dist/css/styles.css';
 import '../../css/uploadForm.css';
 import '../../css/Header.css';
 import '../../css/Modal.css';
-import Sticky from 'react-stickynode';
-import ModalComponent from './ModalComponent';
 
 import {
 	ProSidebar,
