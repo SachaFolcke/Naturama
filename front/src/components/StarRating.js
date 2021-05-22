@@ -12,7 +12,7 @@ export default class StarRating extends React.Component {
 		this.state = {
 			rating: props.average_mark,
 			averageMark: props.average_mark,
-			notes: props.nb_votes,
+			nbVotes: props.nb_votes,
 		};
 	}
 
