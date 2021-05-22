@@ -2,6 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
+import tokenHeader from '../services/token-header.js';
 import { getEncodedHeader } from '../services/token-header.js';
 
 export default class StarRating extends React.Component {
@@ -10,6 +11,8 @@ export default class StarRating extends React.Component {
 
 		this.state = {
 			rating: props.average_mark,
+			averageMark: props.average_mark,
+			notes: props.nb_votes,
 		};
 	}
 
@@ -21,12 +24,25 @@ export default class StarRating extends React.Component {
 				mark: rate,
 			}),
 			headers: getEncodedHeader(),
+		}).then(() => {
+			fetch('http://localhost:8080/api/post/' + this.props.id, {
+				method: 'GET',
+				headers: tokenHeader(),
+			})
+				.then(response => response.json())
+				.then(data => {
+					console.log(data.average_mark);
+					this.setState({
+						averageMark: data.average_mark,
+						nbVotes: data.nb_votes,
+					});
+				});
 		});
 		this.setState({ rating: rate });
 	}
 
 	render() {
-		const { rating } = this.state;
+		const { rating, averageMark, nbVotes } = this.state;
 		return (
 			<div className="d-flex flex-row">
 				<StarRatingComponent
@@ -37,8 +53,7 @@ export default class StarRating extends React.Component {
 					starColor="#1fb80b"
 				/>
 				<label className="ml-2">
-					Note moyenne {Math.round(this.props.average_mark * 100) / 100}/5 (
-					{this.props.nb_votes} votes)
+					Note moyenne {Math.round(averageMark * 100) / 100}/5 ({nbVotes} votes)
 				</label>
 			</div>
 		);

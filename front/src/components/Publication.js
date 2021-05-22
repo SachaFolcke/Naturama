@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '../../css/Publication.css';
 import StarRating from './StarRating.js';
 import tokenHeader from '../services/token-header.js';
+import AuthService from '../services/auth.service';
+import Commentaires from './CommentaireModal.js';
 
 function Publication({ publication }) {
-	const {
-		id,
-		id_image,
-		id_profile,
-		text,
-		average_mark,
-		date,
-		nb_votes,
-	} = publication;
+	const { id, id_image, id_profile, text, average_mark, date, nb_votes } =
+		publication;
+
+	const current_user_id = AuthService.getCurrentUser();
 
 	const [imageShow, setImageShow] = useState('');
 	const [firstName, setFirstName] = useState('');
@@ -91,6 +88,15 @@ function Publication({ publication }) {
 			});
 	}
 
+	function deletePost() {
+		fetch('http://localhost:8080/api/post/' + id, {
+			method: 'DELETE',
+			headers: tokenHeader(),
+		})
+			.then(response => response.text())
+			.then(res => console.log(res));
+	}
+
 	let baliseImage = '';
 	if (id_image != undefined) {
 		useEffect(fetchImage, [setImageShow]);
@@ -98,6 +104,22 @@ function Publication({ publication }) {
 			<div className="d-flex justify-content-center">
 				<img className="w-100" src={imageShow} />
 			</div>
+		);
+	}
+
+	let baliseDelete = '';
+	if (current_user_id.id == id_profile) {
+		baliseDelete = (
+			<form id={'deletePost-' + id}>
+				<button
+					type="submit"
+					form={'deletePost-' + id}
+					className="btn btn-outline-danger"
+					onClick={deletePost.bind()}
+				>
+					Supprimer
+				</button>
+			</form>
 		);
 	}
 
@@ -114,12 +136,13 @@ function Publication({ publication }) {
 					</label>
 					-<label className="ml-2">il y a {timeSince()}</label>
 				</div>
+				{baliseDelete}
 			</div>
 			<label className="ml-5">{text}</label>
 			{baliseImage}
 			<div className="d-flex justify-content-between mt-2 mb-2 mr-4 ml-4">
 				<StarRating id={id} average_mark={average_mark} nb_votes={nb_votes} />
-				<button className="btn btn-success">Commentaires</button>
+				<Commentaires ref={useRef()} id={id} />
 			</div>
 		</div>
 	);
