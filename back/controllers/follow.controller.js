@@ -4,7 +4,7 @@ const Profile = db.Profile;
 
 exports.submitFollow = (req, res) => {
 
-    if (req.body.id === undefined) {
+    if (req.query.id === undefined || req.query.id === null) {
         res.status(400).send({
             message: "Id cible manquant"
         });
@@ -19,7 +19,7 @@ exports.submitFollow = (req, res) => {
         Follow.findOne({
             where: {
                 id_follower: profile.id,
-                id_followee: req.body.id
+                id_followee: req.query.id
             }
         }).then((follow) => {
             if (follow) {
@@ -30,7 +30,7 @@ exports.submitFollow = (req, res) => {
             } else {
                 Follow.create({
                     id_follower: profile.id,
-                    id_followee: req.body.id
+                    id_followee: req.query.id
                 }).then(() => {
                         res.status(200).send({
                             message: "Abonnement créé"
@@ -39,7 +39,7 @@ exports.submitFollow = (req, res) => {
                 );
             }
         }).then(() => {
-            Profile.findByPk(req.body.id)
+            Profile.findByPk(req.query.id)
             .then((profile) => {
                 profile.updateFollowerCount();
             })}
@@ -49,7 +49,7 @@ exports.submitFollow = (req, res) => {
 
 exports.checkFollow = (req, res) => {
 
-    if (req.body.id === undefined) {
+    if (req.query.id === undefined || req.query.id === null) {
         res.status(400).send({
             message: "Id cible manquant"
         });
@@ -64,7 +64,7 @@ exports.checkFollow = (req, res) => {
         Follow.findOne({
             where: {
                 id_follower: profile.id,
-                id_followee: req.body.id
+                id_followee: req.query.id
             }
         }).then((follow) => {
             if (follow) {
@@ -78,7 +78,7 @@ exports.checkFollow = (req, res) => {
 
 exports.checkFollowing = (req, res) => {
 
-    if (req.body.id === undefined) {
+    if (req.query.id === undefined || req.query.id === null) {
         res.status(400).send({
             message: "Id source manquant"
         });
@@ -92,7 +92,7 @@ exports.checkFollowing = (req, res) => {
     }).then((profile) => {
         Follow.findOne({
             where: {
-                id_follower: req.body.id,
+                id_follower: req.query.id,
                 id_followee: profile.id
             }
         }).then((follow) => {
