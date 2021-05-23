@@ -1,12 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../../css/Publication.css';
 import StarRating from './StarRating.js';
 import tokenHeader from '../services/token-header.js';
 import AuthService from '../services/auth.service';
 import Commentaires from './CommentaireModal.js';
+import {Link} from "react-router-dom";
 
 function Publication({ publication }) {
-	const { id, id_image, id_profile, text, average_mark, date, nb_votes } =
+	const { id, id_image, id_profile, text, average_mark, date, nb_votes, Tags } =
 		publication;
 
 	const current_user_id = AuthService.getCurrentUser();
@@ -88,6 +89,16 @@ function Publication({ publication }) {
 			});
 	}
 
+	let balisesTags = [];
+	Tags.forEach((tag, i, array) => {
+		balisesTags.push((
+			<span key={i}>
+				<Link to={`/tag/${tag.id}`}>{tag.name}</Link>
+				{i === array.length - 1 ? "" : " / "}
+			</span>
+		))
+	})
+
 	function deletePost() {
 		fetch('http://localhost:8080/api/post/' + id, {
 			method: 'DELETE',
@@ -101,7 +112,7 @@ function Publication({ publication }) {
 	if (id_image != undefined) {
 		useEffect(fetchImage, [setImageShow]);
 		baliseImage = (
-			<div className="d-flex justify-content-center">
+			<div className="d-flex justify-content-center mb-4">
 				<img className="w-100" src={imageShow} />
 			</div>
 		);
@@ -138,8 +149,9 @@ function Publication({ publication }) {
 				</div>
 				{baliseDelete}
 			</div>
-			<label className="ml-5">{text}</label>
+			<label className="ml-5 mb-4">{text}</label>
 			{baliseImage}
+			{Tags.length > 0 && <div className="tags ml-4">Tags: {balisesTags}</div> }
 			<div className="d-flex justify-content-between mt-2 mb-2 mr-4 ml-4">
 				<StarRating id={id} average_mark={average_mark} nb_votes={nb_votes} />
 				<Commentaires ref={useRef()} id={id} />

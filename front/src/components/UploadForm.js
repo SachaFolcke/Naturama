@@ -7,6 +7,7 @@ export default class UploadForm extends Component {
 	constructor() {
 		super();
 		this.descriptionRef = React.createRef();
+		this.tagRef = React.createRef();
 		this.state = {
 			selectedFile: null,
 			previewImage: null,
@@ -32,6 +33,7 @@ export default class UploadForm extends Component {
 
 		dataUpload.append('file', this.state.selectedFile);
 		dataUpload.append('text', this.descriptionRef.current.value);
+		dataUpload.append('tags', this.tagRef.current.value);
 		axios({
 			method: 'post',
 			url: 'http://localhost:8080/api/post',
@@ -50,28 +52,35 @@ export default class UploadForm extends Component {
 
 	render() {
 		return (
+			<>
+			<h3 className="text-center mt-4 mb-2">Nouvelle publication</h3>
 			<form
 				className="uploadForm"
-				id="uploadForm"
 				onSubmit={event => this.handleSubmit(event)}
 			>
-				<img
-					src={this.state.previewImage}
-					className="imagePreview"
-					id="imagePreview"
-				/>
+				<div id="imagePreview">
+					<img
+						src={this.state.previewImage}
+					/>
+				</div>
+
 				<label className="file">
 					<input
 						type="file"
-						id="file"
-						aria-label="File browser example"
+						className="file"
 						onChange={this.handleInputChange}
 						accept="image/*"
 					/>
 					<span className="file-custom"></span>
 				</label>
+				<input
+					type="text"
+					className="tagsInput"
+					ref={this.tagRef}
+					placeholder="Tags (facultatifs, à séparer par des virgules)"
+				/>
 				<textarea
-					id="description"
+					className="descriptionInput"
 					placeholder="Veuillez entrer un message"
 					cols="30"
 					rows="10"
@@ -82,6 +91,7 @@ export default class UploadForm extends Component {
 					Envoyer
 				</button>
 			</form>
+			</>
 		);
 	}
 }

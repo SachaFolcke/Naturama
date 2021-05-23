@@ -25,10 +25,10 @@ export default class Homepage extends Component {
 					<div className="col-3">
 						<SideBarMenu selection="home" history={this.props.history} />
 					</div>
-					<div className="col-7">
+					<div className="col-8">
 						<Timeline />
 					</div>
-					<div className="col-md-2 col-lg-2"></div>
+					<div className="col-md-1 col-lg-1"></div>
 				</div>
 			</>
 		);

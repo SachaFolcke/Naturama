@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute';
 import LoginForm from './components/LoginForm';
 import Homepage from './components/Homepage';
 import ProfilPage from './components/ProfilPage';
+import SearchPage from './components/SearchPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUpForm from './components/SignUpForm';
@@ -18,6 +19,7 @@ render(
 			<PublicRoute exact path="/signup" component={SignUpForm} />
 			<PrivateRoute exact path="/" component={Homepage} />
 			<PrivateRoute exact path="/Profile" component={ProfilPage} />
+			<PrivateRoute exact path="/tag/:id" component={SearchPage} />
 		</Switch>
 	</BrowserRouter>,
 	document.querySelector('#content')

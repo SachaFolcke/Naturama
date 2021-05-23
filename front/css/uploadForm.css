@@ -1,5 +1,5 @@
 
-#description{
+.descriptionInput {
 	width: 100%;
 	height: 100px;
 	padding: 12px 20px;
@@ -8,31 +8,34 @@
 	border-radius: 4px;
 	background-color: #f8f8f8;
 	resize: none;
-}
-
-#uploadForm {
-	padding: 1em;
-}
-
-#description {
 	margin-top: 10px;
 }
 
+.tagsInput {
+	width: 100%;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	box-sizing: border-box;
+	padding: 8px 20px;
+}
 
-
-
+.uploadForm {
+	padding: 1em;
+}
 
 #imagePreview {
 	padding: 5px; 
-	display: block;
-	max-width:450px;
-	max-height: 200px;
+	display: flex;
+	justify-content: center;
 	width: 100%;
-	height: auto;
-	padding-left: 150px;
-	margin-bottom: 10px;
+}
 
-  	
+#imagePreview > img {
+	max-width:450px;
+	max-height:200px;
+	height: auto;
+	margin-bottom: 10px;
 }
 
 .file {

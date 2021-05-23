@@ -6,8 +6,8 @@ const findByIdOrName = async (req) => {
 
     let tag = null;
 
-    if(req.body.id !== undefined) {
-        await Tag.findByPk(req.body.id)
+    if(req.query.id !== undefined) {
+        await Tag.findByPk(req.query.id)
             .then((result) => {tag = result;})
     }
     else {
@@ -23,10 +23,9 @@ const findByIdOrName = async (req) => {
 
 exports.getTag = async (req, res) => {
 
-    if((req.body.name === undefined || req.body.name.length === 0)
-        && (req.body.id === undefined)) {
+    if(req.query.id === undefined || req.query.id === null) {
         res.status(400).send({
-            message: "Paramètres id et name manquants"
+            message: "Paramètre id manquant"
         });
         return;
     }
@@ -45,10 +44,9 @@ exports.getTag = async (req, res) => {
 
 exports.getPostsByTag = async (req, res) => {
 
-    if((req.body.name === undefined || req.body.name.length === 0)
-        && (req.body.id === undefined)) {
+    if(req.query.id === undefined || req.query.id === null) {
         res.status(400).send({
-            message: "Paramètres id et name manquants"
+            message: "Paramètre id manquant"
         });
         return;
     }
@@ -61,7 +59,8 @@ exports.getPostsByTag = async (req, res) => {
                 model: Profile
             }, {
                 model: Tag
-            }]
+            }],
+            order: [["date", "DESC"]]
         })
             .then((posts) => {
                 res.status(200).send(posts)

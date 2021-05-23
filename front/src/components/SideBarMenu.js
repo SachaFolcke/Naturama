@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import AuthService from '../services/auth.service';
 import { FiHome, FiLogOut } from 'react-icons/fi';
 import { BiImageAdd, BiDollar } from 'react-icons/bi';
@@ -8,7 +8,6 @@ import Sticky from 'react-stickynode';
 import ModalComponent from './ModalComponent';
 
 import 'react-pro-sidebar/dist/css/styles.css';
-import '../../css/uploadForm.css';
 import '../../css/Header.css';
 import '../../css/Modal.css';
 
@@ -20,12 +19,25 @@ import {
 	SidebarFooter,
 	SidebarContent,
 } from 'react-pro-sidebar';
+import tokenHeader from "../services/token-header";
 
 export default class SideBarMenu extends Component {
 	logout(event) {
 		event.preventDefault();
 		AuthService.logout();
 		this.props.history.push('/login');
+	}
+
+	fetchTopTags() {
+
+		fetch('http://localhost:8080/api/tag/top', {
+			method: 'GET',
+			headers: tokenHeader(),
+		})
+			.then(response => response.json())
+			.then(data => { this.setState({
+				tags: data
+			}) })
 	}
 
 	constructor(props) {
@@ -38,6 +50,7 @@ export default class SideBarMenu extends Component {
 				homeBool: true,
 				profilBool: false,
 				donationBool: false,
+				tags: []
 			};
 		} else if (props.selection == 'profil') {
 			this.state = {
@@ -45,6 +58,7 @@ export default class SideBarMenu extends Component {
 				homeBool: false,
 				profilBool: true,
 				donationBool: false,
+				tags: []
 			};
 		} else {
 			this.state = {
@@ -52,8 +66,13 @@ export default class SideBarMenu extends Component {
 				homeBool: false,
 				profilBool: false,
 				donationBool: false,
+				tags: []
 			};
 		}
+	}
+
+	componentDidMount() {
+		this.fetchTopTags();
 	}
 
 	getOpenModal = () => {
@@ -97,15 +116,21 @@ export default class SideBarMenu extends Component {
 									>
 										Donation
 									</MenuItem>
-								</Menu>
-							</SidebarContent>
-							<SidebarFooter>
-								<Menu iconShape="round">
+									<hr />
 									<MenuItem onClick={e => this.logout(e)} icon={<FiLogOut />}>
 										Deconnexion
 									</MenuItem>
 								</Menu>
-							</SidebarFooter>
+							</SidebarContent>
+							<SidebarFooter>
+								<h4 className="text-center mt-3 mb-3">Tags populaires</h4>
+								<ul className="ml-3 mb-3">
+									{this.state.tags.length > 0 ? this.state.tags.map((tag) =>
+										<li key={tag.id}>
+											<Link to={`/tag/${tag.id}`}>{tag.name}</Link> ({tag.count} post{tag.count > 1 ? "s" : ""})
+										</li>) : <li>Aucun tag à afficher</li>}
+								</ul>
+								</SidebarFooter>
 						</ProSidebar>
 					</div>
 				</Sticky>
