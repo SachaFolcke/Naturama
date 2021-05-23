@@ -20,6 +20,13 @@ export default function PublicationList(props) {
 			}).then(response => setPublications(response.data))
 
 
+		} else if(props.mode === "profile") {
+			axios.get(`http://localhost:8080/api/profile/${props.idprofile}/posts`, {
+				headers: {
+					'x-access-token': auth.getToken()
+				}
+			}).then(response => setPublications(response.data))
+
 		} else {
 			fetch('http://localhost:8080/api/timeline', {
 				method: 'GET',

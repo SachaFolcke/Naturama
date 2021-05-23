@@ -94,7 +94,6 @@ export default function ProfilInformation() {
 	}
 
 	function postFollow() {
-		console.log('Bip boup ');
 		axios({
 			method: 'post',
 			url: 'http://localhost:8080/api/follow',
@@ -185,8 +184,8 @@ export default function ProfilInformation() {
 				</div>
 			</div>
 			<div className="mt-4 ml-3 mr-3 mb-2 border border-dark">
-				<h2 className="bg-light border-bottom border-dark">Bio : </h2>
-				<label>{bio}</label>
+				<h3 className="bg-light border-bottom border-dark p-2">Biographie</h3>
+				<p className="p-2">{bio}</p>
 			</div>
 		</div>
 	);

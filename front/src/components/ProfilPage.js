@@ -29,7 +29,7 @@ export default class ProfilPage extends Component {
 						<SideBarMenu selection="profil" history={this.props.history} />
 					</div>
 					<div className="col-8">
-						<ProfilNavigator />
+						<ProfilNavigator idprofile={this.props.match.params.id}/>
 					</div>
 					<div className="col-md-1 col-lg-1"></div>
 				</div>

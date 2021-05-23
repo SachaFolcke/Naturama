@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProfilInformation from './ProfilInformation.js';
 
 import '../../css/Profil.css';
+import PublicationList from "./PublicationList";
 
 export default class ProfilNavigator extends Component {
 	state = {
@@ -54,6 +55,7 @@ export default class ProfilNavigator extends Component {
 				);
 			case 'publication':
 				return (
+					<>
 					<div className="profil">
 						<div className="card-profil">
 							<nav className="nav nav-pills nav-fill">
@@ -87,6 +89,12 @@ export default class ProfilNavigator extends Component {
 							</nav>
 						</div>
 					</div>
+					<div className="card-timeline mt-4">
+						<div>
+							<PublicationList mode="profile" idprofile={this.props.idprofile} />
+						</div>
+					</div>
+					</>
 				);
 			case 'map':
 				return (

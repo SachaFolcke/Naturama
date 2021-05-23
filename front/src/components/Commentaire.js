@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import tokenHeader from '../services/token-header.js';
+import {NavLink} from "react-router-dom";
 
 export default function Commentaire({ commentaire }) {
 	const { date, content, Profile } = commentaire;
@@ -52,7 +53,16 @@ export default function Commentaire({ commentaire }) {
 				<div className="mr-4">
 					<img className="user-img" src={profilImage} />
 					<label className="mr-2">
-						{Profile.first_name} {Profile.last_name}
+						<NavLink
+							to={'/profile/' + Profile.id}
+							onClick={() => {
+								window.scrollTo(0, 0);
+							}}
+							className="mr-2"
+							style={{ fontWeight: 'bold' }}
+						>
+							{Profile.first_name} {Profile.last_name}
+						</NavLink>
 					</label>
 					-<label className="ml-2">il y a {timeSince()}</label>
 				</div>

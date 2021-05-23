@@ -33,7 +33,12 @@ exports.getAllPosts = (req, res) => {
     Post.findAll({
         where: {
             id_profile: req.params.id
-        }, order: [['date', 'DESC']]
+        },
+        include: [
+            {model: Profile},
+            {model: Tag}
+        ],
+        order: [['date', 'DESC']]
     }).then((posts) => {
         res.status(200).send(posts)
     }).catch(err => {
