@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import tokenHeader from '../services/token-header.js';
+import axios from 'axios';
+import tokenHeader, { getEncodedHeader } from '../services/token-header.js';
 import AuthService from '../services/auth.service';
 import { format } from 'date-fns';
 import fr from 'date-fns/locale/fr';
@@ -7,6 +8,7 @@ import { useParams } from 'react-router';
 import ProfilParams from './ChangeProfilParams.js';
 
 import '../../css/Profil.css';
+import { check } from 'prettier';
 
 export default function ProfilInformation() {
 	const { id } = useParams();
@@ -16,6 +18,7 @@ export default function ProfilInformation() {
 		isMyProfile = true;
 	}
 
+	const [isFollowing, setIsFollowing] = useState(false);
 	const [errorFound, setErrorFound] = useState(undefined);
 	const [userData, setUserData] = useState({});
 	const [profilImage, setProfilImage] = useState('');
@@ -79,14 +82,64 @@ export default function ProfilInformation() {
 			});
 	}
 
+	function checkFollowing() {
+		fetch('http://localhost:8080/api/follow?id=' + id, {
+			method: 'GET',
+			headers: tokenHeader(),
+		})
+			.then(response => response.json())
+			.then(data => {
+				setIsFollowing(data);
+			});
+	}
+
+	function postFollow() {
+		console.log('Bip boup ');
+		axios({
+			method: 'post',
+			url: 'http://localhost:8080/api/follow',
+			params: { id: id },
+			headers: getEncodedHeader(),
+		}).then(() => checkFollowing());
+	}
+
 	useEffect(fetchUserData, [setUserData]);
+	useEffect(checkFollowing, [setIsFollowing]);
 	useEffect(() => {
 		fetchUserData();
 	}, [id]);
 
-	let baliseChangePhoto = '';
+	let baliseProfilParams = '';
+	let baliseFollow = '';
+
 	if (isMyProfile) {
-		baliseChangePhoto = <ProfilParams />;
+		baliseProfilParams = <ProfilParams />;
+	} else {
+		if (isFollowing) {
+			baliseFollow = (
+				<div className="d-flex align-items-start flex-column ml-auto p-2">
+					<button
+						type="submit"
+						onClick={() => postFollow()}
+						className="btn btn-secondary"
+					>
+						Suivi
+					</button>
+				</div>
+			);
+		} else {
+			baliseFollow = (
+				<div className="d-flex align-items-start flex-column ml-auto p-2">
+					<button
+						type="submit"
+						onClick={() => postFollow()}
+						className="btn btn-success"
+					>
+						Suivre
+					</button>
+				</div>
+			);
+		}
 	}
 
 	let baliseDate = '';
@@ -127,7 +180,8 @@ export default function ProfilInformation() {
 						<label>Membre depuis le {memberSince}</label>
 						<label>Habite à {location}</label>
 					</div>
-					{baliseChangePhoto}
+					{baliseFollow}
+					{baliseProfilParams}
 				</div>
 			</div>
 			<div className="mt-4 ml-3 mr-3 mb-2 border border-dark">
