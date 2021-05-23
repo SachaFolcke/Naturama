@@ -76,7 +76,8 @@ exports.getPostComments = (req, res) => {
         where: {
             id_post: req.params.id
         },
-        include: Profile
+        include: Profile,
+        order: [['date', 'DESC']]
     }).then((comments) => {
         res.status(200).send(comments)
     }).catch((err) => {
