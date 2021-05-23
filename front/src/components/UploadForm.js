@@ -53,44 +53,42 @@ export default class UploadForm extends Component {
 	render() {
 		return (
 			<>
-			<h3 className="text-center mt-4 mb-2">Nouvelle publication</h3>
-			<form
-				className="uploadForm"
-				onSubmit={event => this.handleSubmit(event)}
-			>
-				<div id="imagePreview">
-					<img
-						src={this.state.previewImage}
-					/>
-				</div>
+				<h3 className="text-center mt-4 mb-2">Nouvelle publication</h3>
+				<form
+					className="uploadForm"
+					onSubmit={event => this.handleSubmit(event)}
+				>
+					<div id="imagePreview">
+						<img src={this.state.previewImage} />
+					</div>
 
-				<label className="file">
+					<label className="file">
+						<input
+							type="file"
+							className="file"
+							onChange={this.handleInputChange}
+							accept="image/*"
+						/>
+						<span className="file-custom"></span>
+					</label>
 					<input
-						type="file"
-						className="file"
-						onChange={this.handleInputChange}
-						accept="image/*"
+						type="text"
+						className="tagsInput"
+						ref={this.tagRef}
+						placeholder="Tags (facultatifs, à séparer par des virgules)"
 					/>
-					<span className="file-custom"></span>
-				</label>
-				<input
-					type="text"
-					className="tagsInput"
-					ref={this.tagRef}
-					placeholder="Tags (facultatifs, à séparer par des virgules)"
-				/>
-				<textarea
-					className="descriptionInput"
-					placeholder="Veuillez entrer un message"
-					cols="30"
-					rows="10"
-					ref={this.descriptionRef}
-				></textarea>
+					<textarea
+						className="descriptionInput"
+						placeholder="Veuillez entrer un message"
+						cols="30"
+						rows="10"
+						ref={this.descriptionRef}
+					></textarea>
 
-				<button type="submit" className="btn btn-success">
-					Envoyer
-				</button>
-			</form>
+					<button type="submit" className="btn btn-success">
+						Envoyer
+					</button>
+				</form>
 			</>
 		);
 	}

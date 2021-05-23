@@ -18,8 +18,8 @@ render(
 			<PublicRoute exact path="/login" component={LoginForm} />
 			<PublicRoute exact path="/signup" component={SignUpForm} />
 			<PrivateRoute exact path="/" component={Homepage} />
-			<PrivateRoute exact path="/Profile" component={ProfilPage} />
 			<PrivateRoute exact path="/tag/:id" component={SearchPage} />
+			<PrivateRoute exact path="/profile/:id" component={ProfilPage} />
 		</Switch>
 	</BrowserRouter>,
 	document.querySelector('#content')

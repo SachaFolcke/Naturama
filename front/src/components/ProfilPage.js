@@ -5,10 +5,13 @@ import SideBarMenu from './SideBarMenu.js';
 import ProfilNavigator from './ProfilNavigator.js';
 
 export default class ProfilPage extends Component {
-	state = {
-		user: auth.getCurrentUser(),
-		profile: {},
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			user: auth.getCurrentUser(),
+			profile: {},
+		};
+	}
 
 	componentDidMount() {
 		profile.getProfileByUserId(this.state.user.id).then(data =>

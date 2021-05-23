@@ -102,7 +102,14 @@ export default class SideBarMenu extends Component {
 										Accueil<NavLink exact to="/"></NavLink>
 									</MenuItem>
 									<MenuItem active={this.state.profilBool} icon={<ImProfile />}>
-										Mon profil<NavLink exact to="/Profile"></NavLink>
+										Mon profil
+										<NavLink
+											exact
+											to={'/profile/' + AuthService.getCurrentUser().id}
+											onClick={() => {
+												window.scrollTo(0, 0);
+											}}
+										></NavLink>
 									</MenuItem>
 									<MenuItem
 										icon={<BiImageAdd />}

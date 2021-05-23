@@ -34,11 +34,17 @@ export default class ProfilNavigator extends Component {
 									Publications
 								</a>
 
-								<a className="nav-item nav-link" href="#Carte-du-Monde">
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('map')}
+								>
 									Carte du Monde
 								</a>
 
-								<a className="nav-item nav-link" href="#Albums">
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('album')}
+								>
 									Albums
 								</a>
 							</nav>
@@ -65,16 +71,93 @@ export default class ProfilNavigator extends Component {
 									Publications
 								</a>
 
-								<a className="nav-item nav-link" href="#Carte-du-Monde">
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('map')}
+								>
 									Carte du Monde
 								</a>
 
-								<a className="nav-item nav-link" href="#Albums">
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('album')}
+								>
 									Albums
 								</a>
 							</nav>
 						</div>
-						<div className="card-profil"></div>
+					</div>
+				);
+			case 'map':
+				return (
+					<div className="profil">
+						<div className="card-profil">
+							<nav className="nav nav-pills nav-fill">
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('info')}
+								>
+									Informations
+								</a>
+
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('publication')}
+								>
+									Publications
+								</a>
+
+								<a
+									className="nav-item nav-link active"
+									onClick={() => this.push('map')}
+								>
+									Carte du Monde
+								</a>
+
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('album')}
+								>
+									Albums
+								</a>
+							</nav>
+						</div>
+					</div>
+				);
+			case 'album':
+				return (
+					<div className="profil">
+						<div className="card-profil">
+							<nav className="nav nav-pills nav-fill">
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('info')}
+								>
+									Informations
+								</a>
+
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('publication')}
+								>
+									Publications
+								</a>
+
+								<a
+									className="nav-item nav-link"
+									onClick={() => this.push('map')}
+								>
+									Carte du Monde
+								</a>
+
+								<a
+									className="nav-item nav-link active"
+									onClick={() => this.push('album')}
+								>
+									Albums
+								</a>
+							</nav>
+						</div>
 					</div>
 				);
 		}

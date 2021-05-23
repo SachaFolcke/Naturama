@@ -4,7 +4,7 @@ import StarRating from './StarRating.js';
 import tokenHeader from '../services/token-header.js';
 import AuthService from '../services/auth.service';
 import Commentaires from './CommentaireModal.js';
-import {Link} from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
 
 function Publication({ publication }) {
 	const { id, id_image, id_profile, text, average_mark, date, nb_votes, Tags } =
@@ -91,13 +91,13 @@ function Publication({ publication }) {
 
 	let balisesTags = [];
 	Tags.forEach((tag, i, array) => {
-		balisesTags.push((
+		balisesTags.push(
 			<span key={i}>
 				<Link to={`/tag/${tag.id}`}>{tag.name}</Link>
-				{i === array.length - 1 ? "" : " / "}
+				{i === array.length - 1 ? '' : ' / '}
 			</span>
-		))
-	})
+		);
+	});
 
 	function deletePost() {
 		fetch('http://localhost:8080/api/post/' + id, {
@@ -142,16 +142,23 @@ function Publication({ publication }) {
 			<div className="d-flex flex-row mb-4 mt-3">
 				<div className="mr-4">
 					<img className="user-img" src={profilImage} />
-					<label className="mr-2">
+					<NavLink
+						to={'/profile/' + id_profile}
+						onClick={() => {
+							window.scrollTo(0, 0);
+						}}
+						className="mr-2"
+						style={{ fontWeight: 'bold' }}
+					>
 						{firstName} {lastName}
-					</label>
+					</NavLink>
 					-<label className="ml-2">il y a {timeSince()}</label>
 				</div>
 				{baliseDelete}
 			</div>
 			<label className="ml-5 mb-4">{text}</label>
 			{baliseImage}
-			{Tags.length > 0 && <div className="tags ml-4">Tags: {balisesTags}</div> }
+			{Tags.length > 0 && <div className="tags ml-4">Tags: {balisesTags}</div>}
 			<div className="d-flex justify-content-between mt-2 mb-2 mr-4 ml-4">
 				<StarRating id={id} average_mark={average_mark} nb_votes={nb_votes} />
 				<Commentaires ref={useRef()} id={id} />
