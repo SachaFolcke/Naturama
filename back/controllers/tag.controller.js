@@ -1,5 +1,6 @@
 const db = require("../models");
 const Tag = db.Tag;
+const Profile = db.Profile;
 
 const findByIdOrName = async (req) => {
 
@@ -55,7 +56,13 @@ exports.getPostsByTag = async (req, res) => {
     const tag = await findByIdOrName(req);
 
     if(tag) {
-        tag.getPosts()
+        tag.getPosts({
+            include: [{
+                model: Profile
+            }, {
+                model: Tag
+            }]
+        })
             .then((posts) => {
                 res.status(200).send(posts)
             })
