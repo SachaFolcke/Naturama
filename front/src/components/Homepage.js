@@ -1,18 +1,36 @@
-import {Component} from "react";
-import Menu from "./Menu";
-import auth from "../services/auth.service";
+import { Component } from 'react';
+import auth from '../services/auth.service';
+import profile from '../services/profile.service';
+import SideBarMenu from './SideBarMenu.js';
+import Timeline from './Timeline.js';
 
 export default class Homepage extends Component {
+	state = {
+		user: auth.getCurrentUser(),
+		profile: {},
+	};
 
-    user = auth.getCurrentUser();
+	componentDidMount() {
+		profile.getProfileByUserId(this.state.user.id).then(data =>
+			this.setState({
+				profile: data,
+			})
+		);
+	}
 
-    render() {
-        return (
-            <>
-                <Menu history={this.props.history}/>
-                <h1>Homepage !</h1>
-                <p>Bienvenue {this.user.email}</p>
-            </>
-        )
-    }
+	render() {
+		return (
+			<>
+				<div className="row">
+					<div className="col-3">
+						<SideBarMenu selection="home" history={this.props.history} />
+					</div>
+					<div className="col-8">
+						<Timeline />
+					</div>
+					<div className="col-md-1 col-lg-1"></div>
+				</div>
+			</>
+		);
+	}
 }

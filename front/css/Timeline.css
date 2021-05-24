@@ -1,0 +1,20 @@
+.card-timeline{
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: rgb(236, 233, 233);
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 8px;
+}
+
+.title-timeline{
+    padding: 5px;
+    width: 100%;
+    color: black;
+    background-color:#448AA6;
+    border-bottom: 2px solid black;
+    font-family: 'Lucida Grande';
+    font-size: 20px;
+}

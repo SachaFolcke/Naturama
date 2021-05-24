@@ -1,0 +1,22 @@
+.publication{
+    max-width: 100%;
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+.user-img{
+    border-radius: 50%;
+    border: 4px double #2C4027;
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+    margin-right: 15px;
+}
+
+label{
+    white-space: pre-wrap;
+}

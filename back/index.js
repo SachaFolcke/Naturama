@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 const corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "*"
 };
 
 app.use(cors(corsOptions));
@@ -21,6 +21,13 @@ app.get("/", (req, res) => {
 });
 
 require('./routes/auth.routes')(app)
+require('./routes/profile.routes')(app)
+require('./routes/post.routes')(app)
+require('./routes/rating.routes')(app)
+require('./routes/image.routes')(app)
+require('./routes/follow.routes')(app)
+require('./routes/comment.routes')(app)
+require('./routes/tag.routes')(app)
 
 const db = require("./models");
 

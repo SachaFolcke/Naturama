@@ -1,0 +1,55 @@
+
+
+.login-card{
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    background-color: white;
+    border-style: double;
+    border-width: 8px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.profile-img-card {
+    width: 70%;
+    height: auto;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.login-form{
+    width: 95%;
+    max-width: 300px;
+    margin: auto;
+}
+
+.form-control{
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: rgb(42, 42, 42);
+    border-style: inset;
+}
+
+.login-btn{
+    height: 35px;
+    width: 100%;
+    background-color: #4CAF50;
+    border-color: green;
+    max-width: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+}
+
+.alert{
+    width: 100%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+}
