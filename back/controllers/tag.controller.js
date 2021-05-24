@@ -1,6 +1,8 @@
 const db = require("../models");
 const Tag = db.Tag;
 const Profile = db.Profile;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const findByIdOrName = async (req) => {
 
@@ -76,7 +78,12 @@ exports.getTopTags = (req, res) => {
 
     Tag.findAll({
         limit: req.body.number || 5,
-        order: [["count", "DESC"]]
+        order: [["count", "DESC"]],
+        where: {
+            count: {
+                [Op.gt] : 0
+            }
+        }
     }).then((tags) => {
         res.status(200).send(tags);
     })
