@@ -6,11 +6,23 @@ h1 {
   margin-left: 40px;
 }
 
-body{
+@font-face {
+  font-family: RockfordSans;
+  src: url("RockfordSans-Light.otf") format("opentype");
+}
+
+body {
   background: url(/img/backgroundLoginPage.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   overflow-x: hidden;
+  font-family: RockfordSans, serif !important;
+  font-size: 16px;
 }
+
+a {
+  color: #7cb65d !important;
+}
+

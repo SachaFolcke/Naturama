@@ -143,7 +143,7 @@ export default function ProfilInformation() {
 
 	let baliseDate = '';
 	if (dateFormated != undefined) {
-		baliseDate = <label>Née le {dateFormated}</label>;
+		baliseDate = <span>Né(e) le {dateFormated}</span>;
 	}
 
 	if (errorFound != undefined) {
@@ -172,12 +172,12 @@ export default function ProfilInformation() {
 						className="d-flex flex-column bd-highlight mb-3 align-self-center"
 						style={{ fontWeight: 'bold' }}
 					>
-						<label>
+						<h3>
 							{userData.first_name} {userData.last_name}
-						</label>
-						{baliseDate}
-						<label>Membre depuis le {memberSince}</label>
-						<label>Habite à {location}</label>
+						</h3>
+						{baliseDate}<br />
+						<span>Membre depuis le {memberSince}</span><br />
+						<span>Habite à {location}</span><br />
 					</div>
 					{baliseFollow}
 					{baliseProfilParams}

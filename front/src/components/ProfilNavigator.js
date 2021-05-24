@@ -39,14 +39,14 @@ export default class ProfilNavigator extends Component {
 									className="nav-item nav-link"
 									onClick={() => this.push('map')}
 								>
-									Carte du Monde
+									<span className="text-muted">Carte du Monde</span>
 								</a>
 
 								<a
 									className="nav-item nav-link"
 									onClick={() => this.push('album')}
 								>
-									Albums
+									<span className="text-muted">Albums</span>
 								</a>
 							</nav>
 							<ProfilInformation push={this.push} params={this.state.params} />
@@ -77,14 +77,14 @@ export default class ProfilNavigator extends Component {
 									className="nav-item nav-link"
 									onClick={() => this.push('map')}
 								>
-									Carte du Monde
+									<span className="text-muted">Carte du Monde</span>
 								</a>
 
 								<a
 									className="nav-item nav-link"
 									onClick={() => this.push('album')}
 								>
-									Albums
+									<span className="text-muted">Albums</span>
 								</a>
 							</nav>
 						</div>
@@ -119,14 +119,14 @@ export default class ProfilNavigator extends Component {
 									className="nav-item nav-link active"
 									onClick={() => this.push('map')}
 								>
-									Carte du Monde
+									<span className="text-muted">Carte du Monde</span>
 								</a>
 
 								<a
 									className="nav-item nav-link"
 									onClick={() => this.push('album')}
 								>
-									Albums
+									<span className="text-muted">Albums</span>
 								</a>
 							</nav>
 						</div>
@@ -155,14 +155,14 @@ export default class ProfilNavigator extends Component {
 									className="nav-item nav-link"
 									onClick={() => this.push('map')}
 								>
-									Carte du Monde
+									<span className="text-muted">Carte du Monde</span>
 								</a>
 
 								<a
 									className="nav-item nav-link active"
 									onClick={() => this.push('album')}
 								>
-									Albums
+									<span className="text-muted">Albums</span>
 								</a>
 							</nav>
 						</div>

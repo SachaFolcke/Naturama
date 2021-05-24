@@ -121,11 +121,11 @@ export default class SideBarMenu extends Component {
 										active={this.state.donationBool}
 										icon={<BiDollar />}
 									>
-										Donation
+										<span className="text-muted">Donation</span>
 									</MenuItem>
 									<hr />
 									<MenuItem onClick={e => this.logout(e)} icon={<FiLogOut />}>
-										Deconnexion
+										Déconnexion
 									</MenuItem>
 								</Menu>
 							</SidebarContent>

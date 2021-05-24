@@ -22,3 +22,8 @@
     border: double 8px #2C4027;
     margin:40px
 }
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: #7cb65d !important;
+    color: #ffffff !important;
+}
